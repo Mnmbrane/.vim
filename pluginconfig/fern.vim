@@ -1,12 +1,11 @@
 let g:fern#default_hidden=1
-let g:fern#default_exclude='**.swp'
 
-function! s:FernBufNext() abort
-	call bufnext()
-endfunction
+let hide_dirs  = '^\%(\.git\)$'  " here you write the dir names 
+let hide_files = '\%(\.swp\|\.ruby-\)\+'    " here you write the file names
 
-function! s:FernBufPrev() abort
-endfunction
+let g:fern#default_exclude = hide_dirs . '\|' . hide_files
+
+"let g:fern#default_exclude='**.swp,.git/'
 
 function! s:init_fern() abort
 	" Write custom code here
