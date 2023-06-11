@@ -9,7 +9,8 @@ fi
 
 vim_str='source ~/.vim/rc.vim'
 grep_str='source\s~/.vim/rc.vim'
-> ~/.vimrc
+rm -rf ~/.vimrc
+touch ~/.vimrc
 if ! grep -q $grep_str ~/.vimrc; then
 	echo $vim_str >> ~/.vimrc
 fi
