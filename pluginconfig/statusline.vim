@@ -1,7 +1,7 @@
 set laststatus=2
 
 hi NormalColor guifg=Black guibg=Blue ctermbg=151 ctermfg=0
-hi InsertColor guifg=Black guibg=Orange ctermbg=202 ctermfg=0
+hi InsertColor guifg=Black guibg=Orange ctermbg=173 ctermfg=0
 hi ReplaceColor guifg=Black guibg=Purple ctermbg=176 ctermfg=0
 hi VisualColor guifg=Black guibg=Cyan ctermbg=38 ctermfg=0
 hi BranchColor guifg=Black guibg=Cyan ctermbg=145 ctermfg=0
