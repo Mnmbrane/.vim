@@ -9,5 +9,5 @@ let g:fzf_buffers_jump = 1
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 
 " Map CTRL+P to FZF
-nnoremap <leader>p :call ModBuffer(':FZF')<CR>
-nnoremap <leader>f :call ModBuffer(':Rg')<CR>
+nnoremap <silent><leader>p :call ModBuffer(':FZF')<CR>
+nnoremap <silent><leader>f :call ModBuffer(':Rg')<CR>
