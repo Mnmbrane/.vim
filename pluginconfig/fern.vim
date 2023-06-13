@@ -34,10 +34,10 @@ augroup my-fern
 augroup END
 
 let s:toggle=0
-function! FernToggle()
+function! s:FernToggle()
 	:Fern . -drawer -toggle -width=35
 	:vertical resize 35
 endfunction
 
-nnoremap <silent> <leader>n :call FernToggle()<cr>
+nnoremap <silent> <leader>n :call <sid>FernToggle()<cr>
 
