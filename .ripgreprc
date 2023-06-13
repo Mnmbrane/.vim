@@ -1,6 +1,6 @@
---hidden
 # git folder
---glob=!*/.git/*
+--glob=!*/.git*
+--glob=!.git*/
 
 --glob=!*.{jpg,png,gif,bmp,tiff,psd,img}
 --glob=!*.{mp4,mkv,avi,mov,mpg,vob,flv}

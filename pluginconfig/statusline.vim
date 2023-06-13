@@ -1,7 +1,7 @@
-set laststatus=2
+setlocal laststatus=2
 let s:BranchName = ''
-let s:modeStr = ' --NORMAL-- '
-let s:RC = '' 
+let s:ft = ''
+let s:fe = ''
 
 hi NormalColor guifg=Black guibg=Blue ctermbg=151 ctermfg=0
 hi InsertColor guifg=Black guibg=Orange ctermbg=173 ctermfg=0
@@ -9,47 +9,30 @@ hi ReplaceColor guifg=Black guibg=Purple ctermbg=176 ctermfg=0
 hi VisualColor guifg=Black guibg=Cyan ctermbg=38 ctermfg=0
 hi BranchColor guifg=Black guibg=Cyan ctermbg=145 ctermfg=0
 hi StatusLineColor guifg=Black guibg=Black ctermbg=0 ctermfg=255
-hi PercentColor guifg=Black guibg=Black ctermbg=0 ctermfg=255
 
 " Update branch name when we enter or leave a buffer
-au BufEnter * call <sid>UpdateBranch()
-
-" Update Branch Name in the status line
-function! s:UpdateBranch()
-	let s:BranchName = system('git -C '. expand('%:p:h') .' rev-parse --abbrev-ref HEAD 2>/dev/null | '."tr -d '\n'")
-	let s:BranchName = (s:BranchName != '') ? '%#BranchColor# '.s:BranchName.' ' : ''
-endfunction
-
-" Get the file type
-function! s:StatuslineFt()
-	return &ft != '' ? &ft.' | ' : ''
-endfunction
-
-function! s:GetEncoding()
-" Get the File encoding
-	return &fileencoding ? &fileencoding : &encoding
-endfunction
-
-function! s:UpdateStatusLineStr()
-	let l:mode = mode()
-	if l:mode == 'n' " Normal
-		let s:modeStr= '%#NormalColor# --NORMAL--  '
-		let s:RC= '%#NormalColor#%4l:%-4c'
-	elseif l:mode == 'i' " Insert
-		let s:modeStr = '%#InsertColor# --INSERT--  '
-		let s:RC= '%#InsertColor#%4l:%-4c'
-	elseif l:mode == 'R' " Replace
-		let s:modeStr = '%#ReplaceColor# --REPLACE-- '
-		let s:RC= '%#ReplaceColor#%4l:%-4c'
-	else " Visual
-		let s:modeStr = '%#VisualColor# --VISUAL--  '
-		let s:RC= '%#VisualColor#%4l:%-4c'
-	endif
-endfunction
+au BufEnter * let s:BranchName = system('git -C '. expand('%:p:h') .' rev-parse --abbrev-ref HEAD 2>/dev/null | '."tr -d '\n'") | let s:BranchName = (s:BranchName != '') ? '%#BranchColor# '.s:BranchName.' ' : '' |  let s:ft = &ft != '' ? &ft.' | ' : '' | let s:fe = &fileencoding ? &fileencoding : &encoding
 
 function! MyStatusLine() abort
-	call <sid>UpdateStatusLineStr()
-	return s:modeStr.s:BranchName.'%#StatusLine# %f '.'%#StatusLineColor#%m'.'%='.<sid>StatuslineFt().<sid>GetEncoding().' | '.&fileformat.' '.'%#StatusLine# %3p%% '.s:RC
+	let l:modeStr= '%#NormalColor# --NORMAL--  '
+	let l:RC= '%#NormalColor#%4l:%-4c'
+	let l:mode = mode()
+
+	if l:mode[0] != 'n' && l:mode[0] != 't'
+		if l:mode == 'v' || l:mode == "\<C-V>"
+			let l:modeStr = '%#VisualColor# --VISUAL--  '
+			let l:RC= '%#VisualColor#%4l:%-4c'
+		elseif l:mode[0] == 'i' " Insert
+			let l:modeStr = '%#InsertColor# --INSERT--  '
+			let l:RC= '%#InsertColor#%4l:%-4c'
+		elseif l:mode[0] == 'R' " Replace
+			let l:modeStr = '%#ReplaceColor# --REPLACE-- '
+			let l:RC= '%#ReplaceColor#%4l:%-4c'
+		endif
+	endif
+
+	return l:modeStr.s:BranchName.'%#StatusLine# %f '.'%#StatusLineColor#%m'.'%='.s:ft.s:fe.' | '.&fileformat.' '.'%#StatusLine# %3p%% '.l:RC
+
 endfunction
 
 set statusline=%!MyStatusLine()
