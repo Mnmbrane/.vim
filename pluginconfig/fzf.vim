@@ -7,5 +7,5 @@ let g:fzf_preview_window = ['hidden,right,50%,<70(up,40%)', 'ctrl-/']
 let g:fzf_buffers_jump = 1
 
 " Map CTRL+P to FZF
-nnoremap <silent><leader>p :call ModBuffer(':FZF')<CR>
-nnoremap <silent><leader>a :call ModBuffer(':Ag')<CR>
+nnoremap <silent><leader>f :call ModBuffer(':FZF')<CR>
+nnoremap <silent><leader>g :call ModBuffer(':Ag')<CR>
